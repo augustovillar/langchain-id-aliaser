@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langchain-id-aliaser"
+version = "0.1.0"
+description = "Reversible UUID/ID aliasing for LangChain & LangGraph — cut tokens and stop the LLM mangling your IDs."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+authors = [{ name = "Augusto Silva", email = "Augusto.Silva@livecycle.ai" }]
+keywords = ["langchain", "langgraph", "llm", "tokens", "uuid", "anonymizer"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+# Core has zero runtime dependencies — it operates on plain strings/dicts/lists.
+dependencies = []
+
+[project.optional-dependencies]
+# wrap_model + graph hooks need only langchain-core.
+langchain = ["langchain-core>=0.3"]
+# AliasMiddleware needs the agent-middleware API from langchain v1+.
+middleware = ["langchain>=1.0"]
+dev = ["pytest>=7", "langchain>=1.0"]
+
+[project.urls]
+Homepage = "https://github.com/augustovillar/langchain-id-aliaser"
+Issues = "https://github.com/augustovillar/langchain-id-aliaser/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/langchain_id_aliaser"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
